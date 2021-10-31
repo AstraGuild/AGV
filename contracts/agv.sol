@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 
@@ -76,10 +77,6 @@ interface IERC20 {
 }
 
 /* ============================================================= */
-// SPDX-License-Identifier: MIT
-
-pragma solidity ^0.8.0;
-
 /*
  * @dev Provides information about the current execution context, including the
  * sender of the transaction and its data. While these are generally available
@@ -578,55 +575,22 @@ abstract contract Ownable is Context {
 }
 
 
-/* ============================================================================== */
-
-/**
- * @dev Extension of {ERC20} that allows token holders to destroy both their own
- * tokens and those that they have an allowance for, in a way that can be
- * recognized off-chain (via event analysis).
- */
-abstract contract ERC20Burnable is Context, ERC20 {
-    /**
-     * @dev Destroys `amount` tokens from the caller.
-     *
-     * See {ERC20-_burn}.
-     */
-    function burn(uint256 amount) public virtual {
-        _burn(_msgSender(), amount);
-    }
-
-    /**
-     * @dev Destroys `amount` tokens from `account`, deducting from the caller's
-     * allowance.
-     *
-     * See {ERC20-_burn} and {ERC20-allowance}.
-     *
-     * Requirements:
-     *
-     * - the caller must have allowance for ``accounts``'s tokens of at least
-     * `amount`.
-     */
-    function burnFrom(address account, uint256 amount) public virtual {
-        uint256 currentAllowance = allowance(account, _msgSender());
-        require(currentAllowance >= amount, "ERC20: burn amount exceeds allowance");
-        _approve(account, _msgSender(), currentAllowance - amount);
-        _burn(account, amount);
-    }
-}
-
 
 /* ============================================================================== */
 
 
-contract AGV is ERC20, ERC20Pausable, Ownable, ERC20Burnable {
-    constructor(uint256 initialSupply) ERC20("Astra Guild Ventures Token","AGV") {
-        _mint(msg.sender, initialSupply);
-    }
-
-    function mint(uint256 amount) public  onlyOwner returns (bool)
-    {
-        _mint(msg.sender, amount);
-        return true;
+contract AGV is ERC20, ERC20Pausable, Ownable {
+    address public investor = 0x625958a2Aef33b07E4dFcD128AD884376403a5ed;
+    address public founder = 0x30b973b79B7e17CB5b1F368D686701344cc87CAC;
+    address public adviser = 0x0A87d1c427D92b70AC044b068c27d7a6b15ee879;
+    address public community = 0xc5833670AFf2C6024D8200ace995075F6A114b66;
+    address public treasure = 0x6498aD5236a711906f635234994eeeC6DC4A66B3;
+    constructor() ERC20("Astra Guild Ventures Token","AGV") {
+        _mint(investor,   600000000000000000000000000);
+        _mint(founder,    240000000000000000000000000);
+        _mint(adviser,    60000000000000000000000000);
+        _mint(community,  700000000000000000000000000);
+        _mint(treasure,   400000000000000000000000000);
     }
 
    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override (ERC20, ERC20Pausable){
