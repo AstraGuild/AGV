@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.0;
+pragma solidity 0.8.9;
 
 
 /**
@@ -580,9 +580,9 @@ abstract contract Ownable is Context {
 
 
 contract AGV is ERC20, ERC20Pausable, Ownable {
-    address public owner = 0x03872114a6581E035Da8387159B00197EDe5D0cb;
+    address public multiSigAdd = 0x03872114a6581E035Da8387159B00197EDe5D0cb;
     constructor() ERC20("Astra Guild Ventures Token","AGV") {
-        _mint(owner,   2000000000000000000000000000);
+        _mint(multiSigAdd,   2000000000000000000000000000);
     }
 
    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override (ERC20, ERC20Pausable){
