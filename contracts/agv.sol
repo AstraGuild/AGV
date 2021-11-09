@@ -579,7 +579,10 @@ abstract contract Ownable is Context {
 
 
 contract AGV is ERC20, ERC20Pausable, Ownable {
+
+    /* All Token will be distributed on Gnosis-safe multisig wallet. */
     address public multiSigAdd = 0x03872114a6581E035Da8387159B00197EDe5D0cb;
+    
     constructor() ERC20("Astra Guild Ventures Token","AGV") {
         _mint(multiSigAdd,   2000000000000000000000000000);
     }
